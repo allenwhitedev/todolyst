@@ -1,0 +1,6 @@
+# already ignored in .meteor/.gitignore
+.meteor/local 
+# from github-generated meteor .gitignore
+.meteor/meteorite
+# to ignore mac's DS_Store files
+.DS_Store

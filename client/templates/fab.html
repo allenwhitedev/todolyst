@@ -1,0 +1,37 @@
+<!-- FIXED ACTION BUTTON -->
+<template name='fab'>
+
+<!-- BUTTON -->
+<div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+  
+  <a class="btn-floating btn-large red" >
+    <i class="large material-icons" id='primaryAction'>{{getAction 'primaryAction'}}</i>
+  </a>
+  
+  <ul>
+    <li><a class="btn-floating yellow darken-1" >
+    	<i class="material-icons" id='quaternaryAction'>{{getAction 'quaternaryAction'}} </i>
+    </a></li>
+
+    <li><a class="btn-floating green" >
+    	<i class="material-icons" id='tertiaryAction'>{{getAction 'tertiaryAction'}}</i>
+    </a></li>
+    
+    <li><a class="btn-floating blue" >
+    	<i class="material-icons" id='secondaryAction'>{{getAction 'secondaryAction'}}</i>
+    </a></li>
+  </ul>
+
+</div>
+
+<!-- TEXT LINE -->
+{{#if placeHolder}}
+<div class='row' style='position: fixed; bottom: 0px; padding-left: 20px; width: 70%;'>
+	<div class="input-field">
+		<input value='' id="textBar" type='text' class='validate padLeft'>
+		<label class='' for='textBar'>{{placeHolder}}</label>
+	</div>
+</div>
+{{/if}}
+
+</template>

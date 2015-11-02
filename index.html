@@ -11,39 +11,13 @@
 
 {{> navbar}}
 
-{{> yield}}
+<div class="container theBody">
+	{{> yield}}
+</div>
+
+{{> fab}}
 
 </template>
 
-<!-- NAVBAR -->
-<template name='navbar'>
-<nav>
-	<div class="nav-wrapper">
-		<a class="brand-logo">todolyst</a>
-		<a class="button-collapse padLeft5" data-activates='mobile-demo'> 
-			<i class="material-icons">menu</i> 
-		</a>
-		<ul class="right hide-on-med-and-down">
-			<li> <a class='closeSideNav'  href=""> Login or Signup </a> </li>
-			<li> <a class='closeSideNav'  href=""> Learn </a> </li>
-			<li> <a class='closeSideNav'  href=""> Other </a> </li>
-		</ul>
-		<ul class="side-nav" id='mobile-demo'>
-			<li> <a class='closeSideNav' href="userAccounts"> Login or Signup </a> </li>
-			<li> <a class='closeSideNav'   href=""> Learn </a> </li>
-			<li> <a class='closeSideNav'  href=""> Other </a> </li>
-		</ul>
-	</div>
-</nav>
-<script type="text/javascript">
-	$(document).ready(function(){ $(".button-collapse").sideNav() }) 
-</script>
-</template>
 
-<template name='home'>
-	<h1 class="text-center">Home Page</h1>
-</template>
 
-<template name='userAccounts'>
-	<h1 class="text-center">User Accounts Page</h1>
-</template>

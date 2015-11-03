@@ -1,5 +1,20 @@
-var setCurrPage = function(name)
-{ Session.set('currPage', name) }
+
+// UNIVERSAL (ON EVERY PAGE)
+var setCurrPage = function(name) { Session.set('currPage', name) }
+var getFolders = function(currParent) {return Folders.find({parent: currParent})}
+var getLists = function(currParent) {return Lists.find({parent: currParent})}
+
+Template.folder.helpers
+({
+	'folder': function()
+	{
+		return getFolders( Session.get('currPage') )
+	},
+	'list': function()
+	{
+		return getLists( Session.get('currPage') )
+	}
+})
 
 Template.fab.helpers
 ({
@@ -30,15 +45,15 @@ Template.navbar.helpers
 
 Template.home.helpers
 ({
-	'folder': function(currParent)
+	'rootFolder': function()
 	{
-		return Folders.find({parent: currParent})
-	},
-	'list': function(currParent)
-	{
-		return Lists.find({parent: currParent})
-	},
-	'setCurrPage': function(){setCurrPage("todolyst")}
+		rootFolder = Folders.findOne({root: true})
+		console.log(rootFolder)
+		if (rootFolder)
+			return rootFolder._id
+		else
+			return false
+	}
 })
 
 Template.list.helpers

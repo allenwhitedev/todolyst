@@ -6,6 +6,7 @@ Router.map(function()
 	this.route('userAccounts')
 	this.route('navbar')
 	this.route('fab')
+	this.route('root')
 })
 
 Router.route(':_id', function()

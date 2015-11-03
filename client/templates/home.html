@@ -1,20 +1,4 @@
-<template name='home'>
-	{{setCurrPage}}
-	<ul class="collection">
-	{{#each folder}}
-		<a class='collection-item' href="/{{_id}}">
-			<i class="material-icons yellow-text text-lighten-2 ">folder</i> &nbsp; 
-			<span class='grey-text text-darken-3'>{{name}}</span>
-		</a>
-	{{/each}}
-
-	{{#each list}}
-	<a class='collection-item' href='/{{_id}}'>
-		<i class="material-icons blue-text text-darken-2">insert_drive_file</i>
-		&nbsp;
-		<span class='grey-text text-darken-3'>{{name}}</span>
-	</a>
-	{{/each}}
-	
-	</ul>
+<template name='home'> {{setCurrPage}}
+	<h4 class="a">Landing page, where users do tutorial or sign in</h4>
+	<a href="/{{rootFolder}}"><i class="material-icons">folder</i>Root Folder</a>
 </template>

@@ -32,7 +32,7 @@ Template.userAccounts.helpers
 		var userId = Meteor.userId()
 		if (userId && anonUserId)
 		{
-			Meteor.call('importAnonData', anonUserId, userId)			
+			Meteor.call('importAnonData', anonUserId)			
 			// make sure no lists are unimported before deleting anonUserId
 			if (!Lists.findOne({createdBy: anonUserId}) && !Folders.findOne({createdBy: anonUserId}))
 			{

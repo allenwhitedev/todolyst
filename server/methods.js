@@ -10,9 +10,14 @@ Meteor.publish('folders', function(userId)
 
 Meteor.methods
 ({
-	'importAnonData': function(anonUserId, userId)
+	'importAnonData': function(anonUserId)
 	{
-		Lists.update({createdBy: anonUserId}, {$set: {createdBy: userId}}, {multi: true}),
-		Folders.update({createdBy: anonUserId}, {$set: {createdBy: userId}}, {multi: true})
+		var userId = Meteor.userId()
+		if (userId)
+		{
+			Lists.update({createdBy: anonUserId}, {$set: {createdBy: userId}}, {multi: true}),
+			Folders.update({createdBy: anonUserId}, {$set: {createdBy: userId}}, {multi: true})			
+		}
+
 	}
 })

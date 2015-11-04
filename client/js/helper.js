@@ -10,6 +10,28 @@ var setCurrPage = function(name, id)
 var getFolders = function(currParent) {return Folders.find({parent: currParent})}
 var getLists = function(currParent) {return Lists.find({parent: currParent})}
 
+
+Template.userAccounts.helpers
+({
+	'importAnonData': function()
+	{ // double check Meteor.userId() (other check is in userAccounts html)
+		var anonUserId = localStorage.getItem('anonUserId')
+		var userId = Meteor.userId()
+		if (userId && anonUserId)
+		{
+			Lists.update({createdBy: anonUserId}, {$set: {createdBy: userId()}}, {multi: true}),
+			Folders.update({createdBy: anonUserId}, {$set: {createdBy: userId()}}, {multi: true})
+			
+			// make sure no lists are unimported before deleting anonUserId
+			if (!Lists.findOne({createdBy: anonUserId}) && !Folders.findOne({createdBy: anonUserId}))
+			{
+				localStorage.removeItem('anonUserId')
+				localStorage.setItem('userId', userId) // could set this in an onLogin callback
+			}
+		}
+	}
+})
+
 Template.folder.helpers
 ({
 	'folder': function()

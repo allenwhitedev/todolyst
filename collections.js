@@ -1,2 +1,2 @@
-Lists = new Mongo.Collection('lists')
-Folders = new Mongo.Collection('folders')
+Lists = new Ground.Collection('lists')
+Folders = new Ground.Collection('folders')

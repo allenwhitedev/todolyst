@@ -1,7 +1,7 @@
 <template name='userAccounts'>
 
 <div class="container">
-{{#if currentUser}}
+{{#if currentUser}} {{importAnonData}}
 	<h4 class="">Profile/settings/statistics page (parallax picture top)</h4>
 	{{> atNavButton}}
 {{else}}

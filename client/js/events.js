@@ -1,5 +1,5 @@
 Meteor.startup(function()
-{
+{ // set session/localStorage variables to defaults if not set (3 cases below)
 	if ( !Session.get('primaryAction') )
 	{
 		Session.set('primaryAction', 'mode_edit')
@@ -9,6 +9,8 @@ Meteor.startup(function()
 	}
 	if ( !Session.get('currPage') )
 		Session.set('currPage', 'todolyst')
+	if ( !localStorage.getItem('userId') && !localStorage.getItem('anonUserId') )
+		localStorage.setItem('anonUserId', Random.id())
 })
 
 

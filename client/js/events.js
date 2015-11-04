@@ -10,7 +10,11 @@ Meteor.startup(function()
 	if ( !Session.get('currPage') )
 		Session.set('currPage', 'todolyst')
 	if ( !localStorage.getItem('userId') && !localStorage.getItem('anonUserId') )
-		localStorage.setItem('anonUserId', Random.id())
+	{
+		var anonUserId = Random.id()
+		localStorage.setItem('anonUserId', anonUserId)
+		Folders.insert({name: 'rootFolder', root: true, createdBy: anonUserId})
+	}
 })
 
 

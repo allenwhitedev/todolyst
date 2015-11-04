@@ -1,5 +1,18 @@
-Lists = Meteor.subscribe('lists')
-Folders = Meteor.subscribe('folders')
+var userId = localStorage.getItem('userId')
+if (userId)
+{
+	Lists = Meteor.subscribe('lists', userId)
+	Folders = Meteor.subscribe('folders', userId)
+}
+else
+{
+	var anonUserId = localStorage.getItem('anonUserId')
+	if (anonUserId)
+	{
+		Lists = Meteor.subscribe('lists', anonUserId)
+		Folders = Meteor.subscribe('folders', anonUserId)
+	}
+}
 
 // UNIVERSAL (ON EVERY PAGE)
 var setCurrPage = function(name, id) 
@@ -19,9 +32,7 @@ Template.userAccounts.helpers
 		var userId = Meteor.userId()
 		if (userId && anonUserId)
 		{
-			Lists.update({createdBy: anonUserId}, {$set: {createdBy: userId()}}, {multi: true}),
-			Folders.update({createdBy: anonUserId}, {$set: {createdBy: userId()}}, {multi: true})
-			
+			Meteor.call('importAnonData', anonUserId, userId)			
 			// make sure no lists are unimported before deleting anonUserId
 			if (!Lists.findOne({createdBy: anonUserId}) && !Folders.findOne({createdBy: anonUserId}))
 			{

@@ -1,3 +1,5 @@
+Lists = Meteor.subscribe('lists')
+Folders = Meteor.subscribe('folders')
 
 // UNIVERSAL (ON EVERY PAGE)
 var setCurrPage = function(name, id) 
@@ -49,7 +51,6 @@ Template.navbar.helpers
 	'parent': function()
 	{
 		var pageId = Session.get('currPageId')
-		console.log('inside parent ' + Session.get('currPageId') )
 		var currList = Lists.findOne({_id: pageId })
 		var currFolder = Folders.findOne({_id: pageId })
 

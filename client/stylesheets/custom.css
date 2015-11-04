@@ -1,4 +1,6 @@
 .padLeft5P {padding-left: 5px;} .padRight5P {padding-right: 5px;}
 .collection-item > * {vertical-align: middle;}
-.navbarItem {height: 56px;}
 .test {color: red; background: yellow;}
+
+/* verrtical aligns back button on mobile screens */
+ @media screen and (max-width: 600px) { .navbarItem {height: 56px;} }

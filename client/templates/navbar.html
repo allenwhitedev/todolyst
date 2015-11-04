@@ -2,19 +2,22 @@
 <template name='navbar'>
 <nav>
 	<div class="nav-wrapper">
+		{{#if parent}}
+		<a href="{{parent}}" class="backButton padLeft5P left navbarItem valign-wrapper"><i class="material-icons">arrow_back</i></a>
+		{{/if}}
 		<a class="brand-logo padLeft5P">{{currPage}}</a>
 		<a class="button-collapse right padRight5P" data-activates='mobile-demo'> 
 			<i class="material-icons">menu</i> 
 		</a>
 		<ul class="right hide-on-med-and-down">
-			<li> <a class='closeSideNav'  href=""> Login or Signup </a> </li>
-			<li> <a class='closeSideNav'  href=""> Learn </a> </li>
-			<li> <a class='closeSideNav'  href=""> Other </a> </li>
+			<li> <a class='closeSideNav' href=""> Login or Signup </a> </li>
+			<li> <a class='closeSideNav' href=""> Learn </a> </li>
+			<li> <a class='closeSideNav' href=""> Other </a> </li>
 		</ul>
 		<ul class="side-nav" id='mobile-demo'>
 			<li> <a class='closeSideNav' href="userAccounts"> Login or Signup </a> </li>
-			<li> <a class='closeSideNav'   href=""> Learn </a> </li>
-			<li> <a class='closeSideNav'  href=""> Other </a> </li>
+			<li> <a class='closeSideNav' href=""> Learn </a> </li>
+			<li> <a class='closeSideNav' href=""> Other </a> </li>
 		</ul>
 	</div>
 </nav>

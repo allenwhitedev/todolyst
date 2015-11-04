@@ -1,6 +1,10 @@
 
 // UNIVERSAL (ON EVERY PAGE)
-var setCurrPage = function(name) { Session.set('currPage', name) }
+var setCurrPage = function(name, id) 
+{ 
+	Session.set('currPageName', name); 
+	Session.set('currPageId', id) 
+}
 var getFolders = function(currParent) {return Folders.find({parent: currParent})}
 var getLists = function(currParent) {return Lists.find({parent: currParent})}
 
@@ -8,12 +12,13 @@ Template.folder.helpers
 ({
 	'folder': function()
 	{
-		return getFolders( Session.get('currPage') )
+		return getFolders(this._id)
 	},
 	'list': function()
 	{
-		return getLists( Session.get('currPage') )
-	}
+		return getLists(this._id)
+	},
+	'setCurrPage': function(){setCurrPage(this.name, this._id)}
 })
 
 Template.fab.helpers
@@ -40,7 +45,21 @@ Template.fab.helpers
 
 Template.navbar.helpers
 ({
-	'currPage':function(){return Session.get('currPage')}
+	'currPage':function(){return Session.get('currPage')},
+	'parent': function()
+	{
+		var pageId = Session.get('currPageId')
+		console.log('inside parent ' + Session.get('currPageId') )
+		var currList = Lists.findOne({_id: pageId })
+		var currFolder = Folders.findOne({_id: pageId })
+
+		if (currList)
+			return Folders.findOne({_id: currList.parent})._id
+		else if (currFolder)
+			return Folders.findOne({_id: currFolder.parent})._id
+		else
+			return false
+	}
 })
 
 Template.home.helpers
@@ -58,10 +77,5 @@ Template.home.helpers
 
 Template.list.helpers
 ({
-	'setCurrPage': function(){setCurrPage(this.name)}
-})
-
-Template.folder.helpers
-({
-	'setCurrPage': function(){setCurrPage(this.name)}
+	'setCurrPage': function(){setCurrPage(this.name, this._id)}
 })

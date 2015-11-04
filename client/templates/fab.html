@@ -28,9 +28,11 @@
 {{#if placeHolder}}
 <div class='row' style='position: fixed; bottom: 0px; padding-left: 20px; width: 70%;'>
 	<div class="input-field">
-		<input value='' id="textBar" type='text' class='validate padLeft'>
-		<label class='' for='textBar'>{{placeHolder}}</label>
-	</div>
+    <form class='fabForm'>
+  		<input value='' id="fabInputBar" type='text' name='fabText' class='validate padLeft'>
+  		<label class='' for='fabInputBar'>{{placeHolder}}</label>
+  	</form>
+  </div>
 </div>
 {{/if}}
 

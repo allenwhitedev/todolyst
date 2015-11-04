@@ -25,16 +25,39 @@ Template.navbar.events
 
 
 // FIXED ACTION BUTTON ----------------------
+var submitAnon = function() 
+{
+
+}
+var submitByUser
+
 Template.fab.events
 ({
 	'click .fixed-action-btn > ul > li > a': function(event)
 	{
 		var oldPrimaryAction = Session.get('primaryAction')
-		console.log(event.target.id.toString())
 		var newPrimaryAction = Session.get(event.target.id)
-		console.log(newPrimaryAction)
 		Session.set('primaryAction', newPrimaryAction)
 		Session.set(event.target.id, oldPrimaryAction)
+	},
+	'submit .fabForm': function(event)
+	{
+		event.preventDefault()
+		var fabText = event.target.fabText.value
+		var primaryAction = Session.get('primaryAction')
+		var userId = localStorage.getItem('userId')
+		
+		if (!userId) // if no userId is found, set userId to be anonUserId
+			userId = localStorage.getItem('anonUserId')
+		
+		if (fabText.length > 0) // if bar has text, insert and clear form
+		{
+			if (primaryAction == "note_add")
+				Lists.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
+			else if (primaryAction == "folder")
+				Folders.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
+			event.target.fabText.value = ""
+		} 
 	}
 })
 

@@ -80,7 +80,7 @@ Template.fab.helpers
 
 Template.navbar.helpers
 ({
-	'currPage':function(){return Session.get('currPage')},
+	'currPage':function(){return Session.get('currPageName')},
 	'parent': function()
 	{
 		var pageId = Session.get('currPageId')

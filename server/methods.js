@@ -7,6 +7,10 @@ Meteor.publish('folders', function(userId)
 {
 	return Folders.find({createdBy: userId})
 })
+Meteor.publish('tasks', function(userId)
+{
+	return Tasks.find({createdBy: userId})
+})
 
 Meteor.methods
 ({

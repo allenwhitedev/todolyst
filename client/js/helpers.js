@@ -3,6 +3,7 @@ if (userId)
 {
 	Lists = Meteor.subscribe('lists', userId)
 	Folders = Meteor.subscribe('folders', userId)
+	Tasks = Meteor.subscribe('tasks', userId)
 }
 else
 {
@@ -11,6 +12,7 @@ else
 	{
 		Lists = Meteor.subscribe('lists', anonUserId)
 		Folders = Meteor.subscribe('folders', anonUserId)
+		Tasks = Meteor.subscribe('tasks', anonUserId)
 	}
 }
 
@@ -22,6 +24,7 @@ var setCurrPage = function(name, id)
 }
 var getFolders = function(currParent) {return Folders.find({parent: currParent})}
 var getLists = function(currParent) {return Lists.find({parent: currParent})}
+var getTasks = function(currParent) {return Tasks.find({parent: currParent})}
 
 
 Template.userAccounts.helpers
@@ -137,5 +140,9 @@ Template.home.helpers
 
 Template.list.helpers
 ({
-	'setCurrPage': function(){setCurrPage(this.name, this._id)}
+	'setCurrPage': function(){setCurrPage(this.name, this._id)},
+	'task': function()
+	{
+		return getTasks(this._id)
+	}
 })

@@ -31,12 +31,8 @@ Template.navbar.events
 
 
 // FIXED ACTION BUTTON ----------------------
-var submitAnon = function() 
-{
 
-}
-var submitByUser
-
+// FAB-FOLDER EVENTS
 Template.fabForFolder.events
 ({
 	'click .fixed-action-btn > ul > li > a': function(event)
@@ -67,7 +63,7 @@ Template.fabForFolder.events
 	}
 })
 
-// TO BE CHANGED LIST ACTIONS
+// FAB-LIST EVENTS
 Template.fabForList.events
 ({
 	'click .fixed-action-btn > ul > li > a': function(event)
@@ -89,10 +85,10 @@ Template.fabForList.events
 		
 		if (fabText.length > 0) // if bar has text, insert and clear form
 		{
-			if (primaryAction == "note_add")
-				Lists.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
-			else if (primaryAction == "folder")
-				Folders.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
+			if (primaryAction == "add")
+				Tasks.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
+
+
 			event.target.fabText.value = ""
 		} 
 	}

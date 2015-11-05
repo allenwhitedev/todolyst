@@ -1,5 +1,13 @@
 <template name='list'> {{setCurrPage}}
-	<h4 class="a">List: {{name}} {{_id}}</h4>
 
-	{{> fabForList}}
+<h4 class="a">List: {{name}} {{_id}}</h4>
+
+<ul class="collection">
+{{#each task}}
+	<li class="collection-item">{{name}}</li>
+{{/each}}
+</ul>
+
+
+{{> fabForList}}
 </template>

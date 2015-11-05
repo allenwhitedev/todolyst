@@ -56,7 +56,8 @@ Template.folder.helpers
 	'setCurrPage': function(){setCurrPage(this.name, this._id)}
 })
 
-Template.fab.helpers
+// FAB HELPERS -------------
+Template.fabForFolder.helpers
 ({
 	'getAction': function(action)
 	{
@@ -75,8 +76,33 @@ Template.fab.helpers
 		else if (primaryAction == 'note_add')
 			return "New Lyst"
 	}
-
 })
+
+// TO BE CHANGED TO LIST ACTIONS
+Template.fabForList.helpers
+({
+	'getAction': function(action)
+	{
+		return Session.get(action)
+	},
+	'textBar':function()
+	{
+		console.log("It is: " )
+		if (Session.get('primaryActionL') == 'plus' || 'note_add')
+			console.log("true!")
+		if (Session.get('primaryActionL') == 'plus' || 'note_add')
+			return true
+	},
+	'placeHolder': function()
+	{
+		var primaryAction = Session.get('primaryActionL') 
+		if (primaryAction == 'add')
+			return "New Task"
+		else if (primaryAction == 'add_to_photos')
+			return "New Lyst"
+	}
+})
+
 
 Template.navbar.helpers
 ({

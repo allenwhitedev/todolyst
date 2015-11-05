@@ -66,11 +66,6 @@ Template.fabForFolder.helpers
 	{
 		return Session.get(action)
 	},
-	'textBar':function()
-	{
-		if (Session.get('primaryAction' == 'folder' || 'note_add'))
-			return true
-	},
 	'placeHolder': function()
 	{
 		var primaryAction = Session.get('primaryAction') 
@@ -88,21 +83,13 @@ Template.fabForList.helpers
 	{
 		return Session.get(action)
 	},
-	'textBar':function()
-	{
-		console.log("It is: " )
-		if (Session.get('primaryActionL') == 'plus' || 'note_add')
-			console.log("true!")
-		if (Session.get('primaryActionL') == 'plus' || 'note_add')
-			return true
-	},
 	'placeHolder': function()
 	{
 		var primaryAction = Session.get('primaryActionL') 
 		if (primaryAction == 'add')
 			return "New Task"
-		else if (primaryAction == 'add_to_photos')
-			return "New Lyst"
+		else if (primaryAction == 'playlist_add' && Session.get('selectedTask'))
+			return "Add Task Info"
 	}
 })
 

@@ -1,5 +1,6 @@
 .padLeft5P {padding-left: 5px;} .padRight5P {padding-right: 5px;}
 .collection-item > * {vertical-align: middle;}
+.selectedTask {background: #eeecef!important; font-size: 1.25rem;}
 .test {color: red; background: yellow;}
 
 /* verrtical aligns back button on mobile screens */

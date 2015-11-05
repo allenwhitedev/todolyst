@@ -11,7 +11,8 @@ Meteor.startup(function()
 		Session.set('primaryActionL', 'add')
 		Session.set('secondaryActionL', 'alarm_add')
 		Session.set('tertiaryActionL', 'check')
-		Session.set('quaternaryActionL', 'open_with')						
+		Session.set('quaternaryActionL', 'open_with')
+		Session.set('quinaryActionL', 'playlist_add')						
 	}
 	if ( !Session.get('currPage') )
 		Session.set('currPage', 'todolyst')
@@ -68,6 +69,11 @@ Template.fabForList.events
 ({
 	'click .fixed-action-btn > ul > li > a': function(event)
 	{
+		// clear selected task from add task info when switching primaryAction
+		var selectedTask = Session.get('selectedTask')
+		if (selectedTask)
+			$("#" + selectedTask).removeClass('selectedTask')
+		// switch primaryAction
 		var oldPrimaryAction = Session.get('primaryActionL')
 		var newPrimaryAction = Session.get(event.target.id)
 		Session.set('primaryActionL', newPrimaryAction)
@@ -87,9 +93,34 @@ Template.fabForList.events
 		{
 			if (primaryAction == "add")
 				Tasks.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
-
-
+			
+			else if (primaryAction == "playlist_add")
+				var selectedTask = Session.get('selectedTask')
+				// make sure users only add task info for their own tasks
+				if (Tasks.findOne({_id: selectedTask, createdBy: userId}))
+				{
+					Tasks.update({_id: selectedTask}, {$set: {info: fabText} } )
+					// TBA: effect to selectedTask (will be re-rendered first) to indiciate info has been added to the task
+					$("#" + selectedTask).removeClass('selectedTask')
+					Session.delete('selectedTask')
+				} 
+				
 			event.target.fabText.value = ""
 		} 
+	}
+})
+
+Template.list.events
+({
+	'click .collection-item': function(event)
+	{
+		var primaryAction = Session.get('primaryActionL')
+		if (primaryAction == "playlist_add")
+		{
+			var selectedTask = Session.get('selectedTask')
+			$("#" + selectedTask).removeClass('selectedTask')
+			Session.set('selectedTask', event.target.id)
+			$("#" + event.target.id).addClass('selectedTask')
+		}
 	}
 })

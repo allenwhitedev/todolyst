@@ -69,7 +69,13 @@
 
 </div>
 
-<!-- TEXT LINE -->
+<!-- TEXT LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- DATE & TIME PICKERS -->
+{{#if addingTime}}
+  {{> datepicker}}
+
+{{else}} 
 {{#if placeHolder}}
 <div class='row' style='position: fixed; bottom: 0px; padding-left: 20px; width: 70%;'>
   <div class="input-field">
@@ -79,6 +85,8 @@
     </form>
   </div>
 </div>
+{{/if}}
+
 {{/if}}
 
 </template>

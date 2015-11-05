@@ -2,6 +2,6 @@
 .collection-item > * {vertical-align: middle;}
 .selectedTask {background: #eeecef!important; font-size: 1.25rem;}
 .test {color: red; background: yellow;}
-
+.fullWidth {width: 100% !important;}
 /* verrtical aligns back button on mobile screens */
  @media screen and (max-width: 600px) { .navbarItem {height: 56px;} }

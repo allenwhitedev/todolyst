@@ -79,6 +79,7 @@ Template.fabForFolder.helpers
 // TO BE CHANGED TO LIST ACTIONS
 Template.fabForList.helpers
 ({
+	'addingTime': function() {return Session.get('addingTime')},
 	'getAction': function(action)
 	{
 		return Session.get(action)
@@ -90,6 +91,8 @@ Template.fabForList.helpers
 			return "New Task"
 		else if (primaryAction == 'playlist_add' && Session.get('selectedTask'))
 			return "Add Task Info"
+		else if (primaryAction == 'alarm_add')
+			return "Add Alarm To Task"
 	}
 })
 

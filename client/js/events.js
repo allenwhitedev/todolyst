@@ -24,6 +24,18 @@ Meteor.startup(function()
 	}
 })
 
+// materialize jquery intializations
+ Template.datepicker.rendered = function()
+ {	
+  $('.datepicker').pickadate
+  ({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 5 // Creates a dropdown of 15 years to control year
+  })
+  //$('.datepicker').focus()
+ // Meteor.setTimeout(function(){ $('.datepicker').focus() }, 500)
+  
+ }
 
 Template.navbar.events
 ({
@@ -72,12 +84,18 @@ Template.fabForList.events
 		// clear selected task from add task info when switching primaryAction
 		var selectedTask = Session.get('selectedTask')
 		if (selectedTask)
+		{
 			$("#" + selectedTask).removeClass('selectedTask')
+			Session.delete('selectedTask')
+		}
 		// switch primaryAction
 		var oldPrimaryAction = Session.get('primaryActionL')
 		var newPrimaryAction = Session.get(event.target.id)
 		Session.set('primaryActionL', newPrimaryAction)
 		Session.set(event.target.id, oldPrimaryAction)
+		
+		if (oldPrimaryAction == 'alarm_add') Session.delete('addingTime')
+		if (newPrimaryAction == 'alarm_add') Session.set('addingTime', true)
 	},
 	'submit .fabForm': function(event)
 	{
@@ -115,12 +133,14 @@ Template.list.events
 	'click .collection-item': function(event)
 	{
 		var primaryAction = Session.get('primaryActionL')
-		if (primaryAction == "playlist_add")
+		if (primaryAction == "playlist_add" || "alarm_add")
 		{
 			var selectedTask = Session.get('selectedTask')
 			$("#" + selectedTask).removeClass('selectedTask')
 			Session.set('selectedTask', event.target.id)
 			$("#" + event.target.id).addClass('selectedTask')
 		}
+		if (primaryAction == 'alarm_add')
+			Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
 	}
 })

@@ -24,19 +24,6 @@ Meteor.startup(function()
 	}
 })
 
-// Javscript for dismissable content collection
-
-// initialize swipeLeft and swipeRight to avoid error when only swiping left upon render
-Template.list.rendered = function()
-{
-Meteor.setTimeout(function()
-{
-
-
-
-}, 500)
-
-}
 
 // materialize jquery intializations
  Template.datepicker.rendered = function()

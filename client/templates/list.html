@@ -2,12 +2,98 @@
 
 <h4 class="a">List: {{name}} {{_id}}</h4>
 
-<ul class="collection">
-{{#each task}}
-	<li class="collection-item waves-effect fullWidth" id="{{_id}}">{{name}}</li>
-{{/each}}
+
+
+{{#if isPrimaryAction "check"}}
+<ul class="collection dismissableCollection">
+  {{#each task}}
+    <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons hide-on-small-only">send</i></a></div></li>
+  {{/each}}
 </ul>
 
+<script type="text/javascript"> // enables dismissable collection
+  swipeLeft = false; swipeRight = false; 
 
+  $('.dismissable').each(function() {
+    $(this).hammer({
+      prevent_default: false
+    }).bind('pan', function(e) {
+      if (e.gesture.pointerType === "touch") {
+        var $this = $(this);
+        var direction = e.gesture.direction;
+        var x = e.gesture.deltaX;
+        var velocityX = e.gesture.velocityX;
+
+        $this.velocity({ translateX: x
+            }, {duration: 50, queue: false, easing: 'easeOutQuad'});
+
+        // Swipe Left
+        if (direction === 4 && (x > ($this.innerWidth() / 2) || velocityX < -0.75)) {
+          swipeLeft = true;
+          $('.dismissableCollection').removeClass('red')
+          $('.dismissableCollection').addClass('green lighten-2')
+        }
+
+        // Swipe Right
+        if (direction === 2 && (x < (-1 * $this.innerWidth() / 2) || velocityX > 0.75)) {
+          swipeRight = true;
+          $('.dismissableCollection').removeClass('green')
+          $('.dismissableCollection').addClass('red lighten-2')
+        }
+      }
+    }).bind('panend', function(e) {
+      // Reset if collection is moved back into original position
+      if (Math.abs(e.gesture.deltaX) < ($(this).innerWidth() / 2)) {
+        swipeRight = false; swipeLeft = false;
+      }
+
+      if (e.gesture.pointerType === "touch") {
+        var $this = $(this);
+        if (swipeLeft || swipeRight) {
+          var fullWidth;
+          if (swipeLeft) { console.log('complete task callback'); fullWidth = $this.innerWidth(); }
+          else { console.log('dismiss task callback'); fullWidth = -1 * $this.innerWidth(); }
+
+          $this.velocity({ translateX: fullWidth,
+            }, {duration: 100, queue: false, easing: 'easeOutQuad', complete:
+            function() {
+              $this.css('border', 'none');
+              $this.velocity({ height: 0, padding: 0,
+                }, {duration: 200, queue: false, easing: 'easeOutQuad', complete:
+                  function() { $this.remove(); }
+                });
+            }
+          });
+        }
+        else {
+          $this.velocity({ translateX: 0,
+            }, {duration: 100, queue: false, easing: 'easeOutQuad'});
+        }
+        swipeLeft = false; swipeRight = false;
+      }
+    });
+
+  });
+</script>
+
+{{else}}
+  <ul class="collection">
+    {{#each task}}
+      <li class="collection-item waves-effect fullWidth" id="{{_id}}">{{name}} </li>
+    {{/each}}
+  </ul> 
+  
+{{/if}} 
+	
+	
 {{> fabForList}}
+
+<script type="text/javascript"> 
+
+
+
+
+
+
+</script>
 </template>

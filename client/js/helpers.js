@@ -130,6 +130,12 @@ Template.home.helpers
 
 Template.list.helpers
 ({
+	'isPrimaryAction': function(action)
+	{
+		var primaryAction = Session.get('primaryActionL')
+		if (primaryAction == action)
+			return true
+	},
 	'setCurrPage': function(){setCurrPage(this.name, this._id)},
 	'task': function()
 	{

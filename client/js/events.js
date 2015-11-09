@@ -11,8 +11,7 @@ Meteor.startup(function()
 		Session.set('primaryActionL', 'add')
 		Session.set('secondaryActionL', 'alarm_add')
 		Session.set('tertiaryActionL', 'check')
-		Session.set('quaternaryActionL', 'open_with')
-		Session.set('quinaryActionL', 'playlist_add')						
+		Session.set('quaternaryActionL', 'open_with')			
 	}
 	if ( !Session.get('currPage') )
 		Session.set('currPage', 'todolyst')
@@ -134,13 +133,20 @@ Template.list.events
 	'click .collection-item': function(event)
 	{
 		var primaryAction = Session.get('primaryActionL')
-		if (primaryAction == "playlist_add" || "alarm_add")
+		
+		if (primaryAction == "add" || "alarm_add")
 		{
 			var selectedTask = Session.get('selectedTask')
 			$("#" + selectedTask).removeClass('selectedTask')
-			Session.set('selectedTask', event.target.id)
-			$("#" + event.target.id).addClass('selectedTask')
+			if (event.target.id == selectedTask)					
+				Session.delete('selectedTask')
+			else
+			{
+				Session.set('selectedTask', event.target.id)
+				$("#" + event.target.id).addClass('selectedTask')				
+			}
 		}
+
 		if (primaryAction == 'alarm_add')
 			Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
 	}

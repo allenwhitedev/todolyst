@@ -147,6 +147,7 @@ Template.list.events
 		{
 			var selectedTask = Session.get('selectedTask')
 			$('.selectedTask').removeClass('selectedTask')
+			
 			if (event.target.id == selectedTask)
 			{
 				Session.delete('selectedTask')
@@ -160,10 +161,11 @@ Template.list.events
 				$("#" + event.target.id).addClass('selectedTask')				
 				if (primaryAction == "add")
 					Session.set('primaryActionL', 'edit')
+				else if (primaryAction == 'alarm_add')
+					Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
 			}
 		}
 
-		if (primaryAction == 'alarm_add')
-			Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
+
 	}
 })

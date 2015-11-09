@@ -32,10 +32,8 @@ Meteor.startup(function()
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 5 // Creates a dropdown of 15 years to control year
   })
-  //$('.datepicker').focus()
- // Meteor.setTimeout(function(){ $('.datepicker').focus() }, 500)
-  
  }
+
 
 Template.navbar.events
 ({
@@ -165,7 +163,5 @@ Template.list.events
 					Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
 			}
 		}
-
-
 	}
 })

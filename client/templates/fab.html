@@ -71,22 +71,33 @@
 
 <!-- TEXT LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-<!-- DATE & TIME PICKERS -->
-{{#if addingTime}}
-  {{> datepicker}}
+{{#if addingTime}} <!-- DATE & TIME PICKERS, USING TEMPLATE FOR EVENTS & HELPERS -->
+  {{> datepicker}} 
 
-{{else}} 
-{{#if placeHolder}}
+{{else}} {{#if placeHolderForm}}
 <div class='row' style='position: fixed; bottom: 0px; padding-left: 20px; width: 70%;'>
   <div class="input-field">
     <form class='fabForm'>
       <input value='' id="fabInputBar" type='text' name='fabText' class='validate padLeft'>
-      <label class='' for='fabInputBar'>{{placeHolder}}</label>
+      <label class='' for='fabInputBar'>{{placeHolderForm}}</label>
     </form>
   </div>
 </div>
+
+{{else}} {{#if placeHolderInfo}}
+<div class='row' style='position: absolute; bottom: 0px; padding-left: 20px; width: 70%;'>
+   <label class='' for='fabInputBar'>{{placeHolderInfo}}</label>
+</div>
+    {{/if}}
+  
+  {{/if}}
 {{/if}}
 
-{{/if}}
+
+
+
+
+
+
 
 </template>

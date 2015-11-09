@@ -1,13 +1,12 @@
 <template name='list'> {{setCurrPage}}
 
-<h4 class="a">List: {{name}} {{_id}}</h4>
-
-
 <!-- DISMISSABLE COLLECTION (CHECK/DISMISS TASK) -->
 {{#if isPrimaryAction "check"}}
 <ul class="collection dismissableCollection">
   {{#each task}}
-    <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons hide-on-small-only">send</i></a></div></li>
+    <li class="collection-item dismissable">
+      <div>{{name}}</div>
+    </li>
   {{/each}}
 </ul>
 

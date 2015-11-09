@@ -84,15 +84,36 @@ Template.fabForList.helpers
 	{
 		return Session.get(action)
 	},
-	'placeHolder': function()
+	'placeHolderInfo': function()
+	{
+		var primaryAction = Session.get('primaryActionL')
+		if (primaryAction == 'check')
+			return "Swipe To Dismiss"
+		else if (primaryAction == 'open_with')
+			return 'Reorder'
+	},
+	'placeHolderForm': function()
 	{
 		var primaryAction = Session.get('primaryActionL') 
 		if (primaryAction == 'add')
 				return "New Task"
 		else if (primaryAction == 'edit')
 			return "Edit Task"
-		else if (primaryAction == 'alarm_add')
-			return "Add Alarm To Task"
+	}
+})
+
+Template.datepicker.helpers
+({
+	'placeHolder': function()
+	{
+		if (Session.get('selectedTask'))
+			return "Edit Task Time"
+		else
+			return "Add Timed Task"
+	},
+	'selectedTask': function()
+	{
+		return Session.get('selectedTask')
 	}
 })
 

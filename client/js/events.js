@@ -97,6 +97,15 @@ Template.fabForList.events
 		if (oldPrimaryAction == 'alarm_add') Session.delete('addingTime')
 		if (newPrimaryAction == 'alarm_add') Session.set('addingTime', true)
 	},
+	'click #primaryActionL': function()
+	{
+		if (Session.get('primaryActionL') == 'edit')		
+		{ 
+			Session.set('primaryActionL', 'add')
+			$('.selectedTask').removeClass('selectedTask')
+			Session.delete('selectedTask') 
+		} 		
+	},
 	'submit .fabForm': function(event)
 	{
 		event.preventDefault()
@@ -137,13 +146,20 @@ Template.list.events
 		if (primaryAction == "add" || "alarm_add")
 		{
 			var selectedTask = Session.get('selectedTask')
-			$("#" + selectedTask).removeClass('selectedTask')
-			if (event.target.id == selectedTask)					
+			$('.selectedTask').removeClass('selectedTask')
+			if (event.target.id == selectedTask)
+			{
 				Session.delete('selectedTask')
+				if (primaryAction == "edit")
+					Session.set('primaryActionL', "add")
+			}					
+				
 			else
 			{
 				Session.set('selectedTask', event.target.id)
 				$("#" + event.target.id).addClass('selectedTask')				
+				if (primaryAction == "add")
+					Session.set('primaryActionL', 'edit')
 			}
 		}
 

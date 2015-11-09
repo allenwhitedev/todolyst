@@ -88,10 +88,9 @@ Template.fabForList.helpers
 	{
 		var primaryAction = Session.get('primaryActionL') 
 		if (primaryAction == 'add')
-			if ( Session.get('selectedTask') )
-				return "Add Task Info"
-			else
 				return "New Task"
+		else if (primaryAction == 'edit')
+			return "Edit Task"
 		else if (primaryAction == 'alarm_add')
 			return "Add Alarm To Task"
 	}

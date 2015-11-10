@@ -1,7 +1,7 @@
 <template name='list'> {{setCurrPage}}
 
 <!-- DISMISSABLE COLLECTION (CHECK/DISMISS TASK) -->
-{{#if isPrimaryAction "ion-android-done"}}
+{{#if isPrimaryAction "ion-android-done"}} {{> dismissableRenderedHook}}
 <ul class="collection dismissableCollection">
   {{#each task}}
     <li class="collection-item dismissable">
@@ -10,84 +10,15 @@
   {{/each}}
 </ul>
 
-<script type="text/javascript"> // enables dismissable collection
-  swipeLeft = false; swipeRight = false; 
-
-  $('.dismissable').each(function() {
-    $(this).hammer({
-      prevent_default: false
-    }).bind('pan', function(e) {
-      if (e.gesture.pointerType === "touch") {
-        var $this = $(this);
-        var direction = e.gesture.direction;
-        var x = e.gesture.deltaX;
-        var velocityX = e.gesture.velocityX;
-
-        $this.velocity({ translateX: x
-            }, {duration: 50, queue: false, easing: 'easeOutQuad'});
-
-        // Swipe Left
-        if (direction === 4 && (x > ($this.innerWidth() / 2) || velocityX < -0.75)) {
-          swipeLeft = true;
-          $('.dismissableCollection').removeClass('red')
-          $('.dismissableCollection').addClass('green lighten-2')
-        }
-
-        // Swipe Right
-        if (direction === 2 && (x < (-1 * $this.innerWidth() / 2) || velocityX > 0.75)) {
-          swipeRight = true;
-          $('.dismissableCollection').removeClass('green')
-          $('.dismissableCollection').addClass('red lighten-2')
-        }
-      }
-    }).bind('panend', function(e) {
-      // Reset if collection is moved back into original position
-      if (Math.abs(e.gesture.deltaX) < ($(this).innerWidth() / 2)) {
-        swipeRight = false; swipeLeft = false;
-      }
-
-      if (e.gesture.pointerType === "touch") {
-        var $this = $(this);
-        if (swipeLeft || swipeRight) {
-          var fullWidth;
-          if (swipeLeft) { console.log('complete task callback'); fullWidth = $this.innerWidth(); }
-          else { console.log('dismiss task callback'); fullWidth = -1 * $this.innerWidth(); }
-
-          $this.velocity({ translateX: fullWidth,
-            }, {duration: 100, queue: false, easing: 'easeOutQuad', complete:
-            function() {
-              $this.css('border', 'none');
-              $this.velocity({ height: 0, padding: 0,
-                }, {duration: 200, queue: false, easing: 'easeOutQuad', complete:
-                  function() { $this.remove(); }
-                });
-            }
-          });
-        }
-        else {
-          $this.velocity({ translateX: 0,
-            }, {duration: 100, queue: false, easing: 'easeOutQuad'});
-        }
-        swipeLeft = false; swipeRight = false;
-      }
-    });
-
-  });
-</script>
 
 <!-- SORTABLE COLLECTION DISPLAY (REARRANGE ORDER) -->
-{{else}} {{#if isPrimaryAction "ion-arrow-move"}}
+{{else}} {{#if isPrimaryAction "ion-arrow-move"}} {{> sortableRenderedHook}}
 <ul class="collection sortable">
   <li class='collection-item'>item 1</li>
   <li class='collection-item'>item 2</li>
   <li class='collection-item'>item 3</li>
 </ul>  
 
-<script type="text/javascript">
-!function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
-$( ".sortable" ).sortable();
-$( ".sortable" ).disableSelection()
-</script>
 
 <!-- REGULAR COLLECTION DISPLAY -->
 {{else}}

@@ -1,46 +1,3 @@
-
-<!-- FOLDER FAB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<template name='fabForFolder'>
-<footer class='fabFooter'>
-
-<!-- BUTTON -->
-<div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
-  
-  <a class="btn-floating btn-large red" >
-    <i class="large {{getAction 'primaryAction'}}" id='primaryAction'></i>
-  </a>
-  
-  <ul>
-    <li><a class="btn-floating yellow darken-1" >
-    	<i class="{{getAction 'quaternaryAction'}}" id='quaternaryAction'> </i>
-    </a></li>
-
-    <li><a class="btn-floating green" >
-    	<i class="{{getAction 'tertiaryAction'}}" id='tertiaryAction'></i>
-    </a></li>
-    
-    <li><a class="btn-floating blue" >
-    	<i class="{{getAction 'secondaryAction'}}" id='secondaryAction'></i>
-    </a></li>
-  </ul>
-
-</div>
-
-<!-- TEXT LINE -->
-{{#if placeHolder}}
-<div class='row' style='position: fixed; bottom: 0px; padding-left: 20px; width: 70%;'>
-	<div class="input-field">
-    <form class='fabForm'>
-  		<input value='' id="fabInputBar" type='text' name='fabText' class='validate padLeft'>
-  		<label class='' for='fabInputBar'>{{placeHolder}}</label>
-  	</form>
-  </div>
-</div>
-{{/if}}
-
-</footer>
-</template>
-
 <!-- LIST FAB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <template name='fabForList'>
 <footer class='fabFooter'>
@@ -72,10 +29,14 @@
 
 </div>
 
-<!-- TEXT LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEXT LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-{{#if addingTime}} <!-- DATE & TIME PICKERS, USING TEMPLATE FOR EVENTS & HELPERS -->
-  {{> datepicker}} 
+<!-- DATE & TIME PICKERS-->
+{{#if addingTime}} {{>datepickerRenderedHook}}
+<div class='row' style='position: absolute; bottom: 0px; padding-left: 20px; width: 70%;'>
+   <input type='date' id='fabInputBar' class='datepicker validate padLeft absoluteToHide' >
+   <label class='' for='fabInputBar'>Add/Edit Date</label>
+</div> 
 
 {{else}} {{#if placeHolderForm}}
 <div class='row' style='position: fixed; bottom: 0px; padding-left: 20px; width: 70%;'>

@@ -107,22 +107,6 @@ Template.fabForList.helpers
 	}
 })
 
-Template.datepicker.helpers
-({
-	'placeHolder': function()
-	{
-		if (Session.get('selectedTask'))
-			return "Edit Task Time"
-		else
-			return "Add Timed Task"
-	},
-	'selectedTask': function()
-	{
-		return Session.get('selectedTask')
-	}
-})
-
-
 Template.navbar.helpers
 ({
 	'currPage':function(){return Session.get('currPageName')},

@@ -1,49 +1,13 @@
-Meteor.startup(function()
-{ // set session/localStorage variables to defaults if not set (3 cases below)
-	if ( !Session.get('primaryAction') )
-	{
-		// folder fab
-		Session.set('primaryAction', 'ion-edit')
-		Session.set('secondaryAction', 'ion-folder')
-		Session.set('tertiaryAction', 'ion-ios-bell')
-		Session.set('quaternaryAction', 'ion-document-text')
-		// list fab
-		Session.set('primaryActionL', 'ion-plus')
-		Session.set('secondaryActionL', 'ion-android-calendar')
-		Session.set('tertiaryActionL', 'ion-android-done')
-		Session.set('quaternaryActionL', 'ion-arrow-move')			
-	}
-	if ( !Session.get('currPage') )
-		Session.set('currPage', 'todolyst')
-	if ( !localStorage.getItem('userId') && !localStorage.getItem('anonUserId') )
-	{
-		var anonUserId = Random.id()
-		localStorage.setItem('anonUserId', anonUserId)
-		Folders.insert({name: 'rootFolder', root: true, createdBy: anonUserId})
-	}
-})
-
-
-// materialize jquery intializations
- Template.datepicker.rendered = function()
- {	
-  $('.datepicker').pickadate
-  ({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 5 // Creates a dropdown of 15 years to control year
-  })
- }
-
+// EVENTS
 
 Template.navbar.events
 ({
 	'click .nav-wrapper > ul > li': function(){ $('.button-collapse').sideNav('hide') }
 })
 
+// ---------------------------------- FIXED ACTION BUTTONS
 
-// FIXED ACTION BUTTON ----------------------
-
-// FAB-FOLDER EVENTS
+// FAB-FOLDER EVENTS ----------------------------------------
 Template.fabForFolder.events
 ({
 	'click .fixed-action-btn > ul > li > a': function(event)
@@ -74,7 +38,7 @@ Template.fabForFolder.events
 	}
 })
 
-// FAB-LIST EVENTS
+// FAB-LIST EVENTS ------------------------------------
 Template.fabForList.events
 ({
 	'click #fabInputBar': function(event)
@@ -141,6 +105,8 @@ Template.fabForList.events
 		} 
 	}
 })
+
+// LIST EVENTS ----------------------------------
 
 Template.list.events
 ({

@@ -8,8 +8,6 @@ Router.map(function()
 	this.route('fabForFolder')
 	this.route('fabForList')
 	this.route('root')
-	this.route('datepicker')
-	this.route('timepicker')
 })
 
 Router.route(':_id', function()

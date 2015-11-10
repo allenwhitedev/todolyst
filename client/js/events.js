@@ -3,15 +3,15 @@ Meteor.startup(function()
 	if ( !Session.get('primaryAction') )
 	{
 		// folder fab
-		Session.set('primaryAction', 'mode_edit')
-		Session.set('secondaryAction', 'folder')
-		Session.set('tertiaryAction', 'add_alert')
-		Session.set('quaternaryAction', 'note_add')
+		Session.set('primaryAction', 'ion-edit')
+		Session.set('secondaryAction', 'ion-folder')
+		Session.set('tertiaryAction', 'ion-ios-bell')
+		Session.set('quaternaryAction', 'ion-document-text')
 		// list fab
-		Session.set('primaryActionL', 'add')
-		Session.set('secondaryActionL', 'alarm_add')
-		Session.set('tertiaryActionL', 'check')
-		Session.set('quaternaryActionL', 'open_with')			
+		Session.set('primaryActionL', 'ion-plus')
+		Session.set('secondaryActionL', 'ion-android-calendar')
+		Session.set('tertiaryActionL', 'ion-android-done')
+		Session.set('quaternaryActionL', 'ion-arrow-move')			
 	}
 	if ( !Session.get('currPage') )
 		Session.set('currPage', 'todolyst')
@@ -65,9 +65,9 @@ Template.fabForFolder.events
 		
 		if (fabText.length > 0) // if bar has text, insert and clear form
 		{
-			if (primaryAction == "note_add")
+			if (primaryAction == "ion-document-text")
 				Lists.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
-			else if (primaryAction == "folder")
+			else if (primaryAction == "ion-folder")
 				Folders.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
 			event.target.fabText.value = ""
 		} 
@@ -77,6 +77,12 @@ Template.fabForFolder.events
 // FAB-LIST EVENTS
 Template.fabForList.events
 ({
+	'click #fabInputBar': function(event)
+	{
+		var primaryAction = Session.get('primaryActionL')
+		if (primaryAction == "ion-edit")
+			event.target.value = Tasks.findOne({ _id: Session.get('selectedTask') }).name
+	},
 	'click .fixed-action-btn > ul > li > a': function(event)
 	{
 		// clear selected task from add task info when switching primaryAction
@@ -92,16 +98,17 @@ Template.fabForList.events
 		Session.set('primaryActionL', newPrimaryAction)
 		Session.set(event.target.id, oldPrimaryAction)
 		
-		if (oldPrimaryAction == 'alarm_add') Session.delete('addingTime')
-		if (newPrimaryAction == 'alarm_add') Session.set('addingTime', true)
+		if (oldPrimaryAction == 'ion-android-calendar') Session.delete('addingTime')
+		if (newPrimaryAction == 'ion-android-calendar') Session.set('addingTime', true)
 	},
 	'click #primaryActionL': function()
 	{
-		if (Session.get('primaryActionL') == 'edit')		
+		if (Session.get('primaryActionL') == 'ion-edit')		
 		{ 
-			Session.set('primaryActionL', 'add')
+			Session.set('primaryActionL', 'ion-plus')
 			$('.selectedTask').removeClass('selectedTask')
-			Session.delete('selectedTask') 
+			Session.delete('selectedTask')
+			$('#fabInputBar').val(undefined); $('#fabInputBar').blur()  
 		} 		
 	},
 	'submit .fabForm': function(event)
@@ -116,10 +123,10 @@ Template.fabForList.events
 		
 		if (fabText.length > 0) // if bar has text, insert and clear form
 		{
-			if (primaryAction == "add")
+			if (primaryAction == "ion-plus")
 				Tasks.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
 			
-			else if (primaryAction == "playlist_add")
+			else if (primaryAction == "ion-arrow-move")
 				var selectedTask = Session.get('selectedTask')
 				// make sure users only add task info for their own tasks
 				if (Tasks.findOne({_id: selectedTask, createdBy: userId}))
@@ -141,7 +148,7 @@ Template.list.events
 	{
 		var primaryAction = Session.get('primaryActionL')
 		
-		if (primaryAction == "add" || "alarm_add")
+		if (primaryAction == "ion-plus" || "ion-android-calendar")
 		{
 			var selectedTask = Session.get('selectedTask')
 			$('.selectedTask').removeClass('selectedTask')
@@ -149,17 +156,18 @@ Template.list.events
 			if (event.target.id == selectedTask)
 			{
 				Session.delete('selectedTask')
-				if (primaryAction == "edit")
-					Session.set('primaryActionL', "add")
+				$('#fabInputBar').val(undefined); $('#fabInputBar').blur() 
+				if (primaryAction == "ion-edit")
+					Session.set('primaryActionL', "ion-plus")
 			}					
 				
 			else
 			{
 				Session.set('selectedTask', event.target.id)
 				$("#" + event.target.id).addClass('selectedTask')				
-				if (primaryAction == "add")
-					Session.set('primaryActionL', 'edit')
-				else if (primaryAction == 'alarm_add')
+				if (primaryAction == "ion-plus")
+					Session.set('primaryActionL', 'ion-edit')
+				else if (primaryAction == 'ion-android-calendar')
 					Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
 			}
 		}

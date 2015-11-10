@@ -1,7 +1,7 @@
 <template name='list'> {{setCurrPage}}
 
 <!-- DISMISSABLE COLLECTION (CHECK/DISMISS TASK) -->
-{{#if isPrimaryAction "check"}}
+{{#if isPrimaryAction "ion-android-done"}}
 <ul class="collection dismissableCollection">
   {{#each task}}
     <li class="collection-item dismissable">
@@ -76,7 +76,7 @@
 </script>
 
 <!-- SORTABLE COLLECTION DISPLAY (REARRANGE ORDER) -->
-{{else}} {{#if isPrimaryAction "open_with"}}
+{{else}} {{#if isPrimaryAction "ion-arrow-move"}}
 <ul class="collection sortable">
   <li class='collection-item'>item 1</li>
   <li class='collection-item'>item 2</li>

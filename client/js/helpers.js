@@ -69,9 +69,9 @@ Template.fabForFolder.helpers
 	'placeHolder': function()
 	{
 		var primaryAction = Session.get('primaryAction') 
-		if (primaryAction == 'folder')
+		if (primaryAction == 'ion-folder')
 			return "New Category"
-		else if (primaryAction == 'note_add')
+		else if (primaryAction == 'ion-document-text')
 			return "New Lyst"
 	}
 })
@@ -87,18 +87,23 @@ Template.fabForList.helpers
 	'placeHolderInfo': function()
 	{
 		var primaryAction = Session.get('primaryActionL')
-		if (primaryAction == 'check')
+		if (primaryAction == 'ion-android-done')
 			return "Swipe To Dismiss"
-		else if (primaryAction == 'open_with')
+		else if (primaryAction == 'ion-arrow-move')
 			return 'Reorder'
 	},
 	'placeHolderForm': function()
 	{
 		var primaryAction = Session.get('primaryActionL') 
-		if (primaryAction == 'add')
+		if (primaryAction == 'ion-plus')
 				return "New Task"
-		else if (primaryAction == 'edit')
+		else if (primaryAction == 'ion-edit')
 			return "Edit Task"
+	},
+	'selectedTaskInfo': function(property)
+	{
+		var selectedTask = Session.get('selectedTask')
+		return Tasks.findOne({_id: selectedTask}).property
 	}
 })
 

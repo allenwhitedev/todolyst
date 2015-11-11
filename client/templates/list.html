@@ -13,10 +13,10 @@
 
 <!-- SORTABLE COLLECTION DISPLAY (REARRANGE ORDER) -->
 {{else}} {{#if isPrimaryAction "ion-arrow-move"}} {{> sortableRenderedHook}}
-<ul class="collection sortable">
-  <li class='collection-item'>item 1</li>
-  <li class='collection-item'>item 2</li>
-  <li class='collection-item'>item 3</li>
+<ul class="collection sortable selector">
+{{#each task}}
+  <li class='collection-item' data-id='{{_id}}' id='sort_{{order}}'>{{name}}</li>
+{{/each}}
 </ul>  
 
 

@@ -72,6 +72,7 @@ Template.dismissableRenderedHook.rendered = function()
           { 
            fullWidth = $this.innerWidth();
            var taskId =  $(this).children().attr("id")
+           Lists.update({_id: Session.get('currPageId')}, {$inc: {children: -1}})
             Meteor.setTimeout(function()// allow time for animation 
             {
               Tasks.update({_id: taskId}, {$set: {status: "completed"} }) 
@@ -81,6 +82,7 @@ Template.dismissableRenderedHook.rendered = function()
           {
             fullWidth = -1 * $this.innerWidth(); 
             var taskId =  $(this).children().attr("id")
+            Lists.update({_id: Session.get('currPageId')}, {$inc: {children: -1}})
             Meteor.setTimeout(function()// allow time for animation 
             {
               Tasks.update({_id: taskId}, {$set: {status: "dismissed"} }) 

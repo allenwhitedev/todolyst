@@ -147,6 +147,7 @@ Template.list.helpers
 	'task': function()
 	{
 		var userId = getUserId()
-		return Tasks.find({parent: this._id, createdBy: userId, status: {$exists: false} })
+		return Tasks.find({parent: this._id, createdBy: userId, status: {$exists: false} }
+			, {sort: {order: 1} })
 	}
 })

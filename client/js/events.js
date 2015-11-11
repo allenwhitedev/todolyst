@@ -88,7 +88,13 @@ Template.fabForList.events
 		if (fabText.length > 0) // if bar has text, insert and clear form
 		{
 			if (primaryAction == "ion-plus")
-				Tasks.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId')})
+			{
+				var parentId = Session.get('currPageId')
+				Lists.update({_id: parentId}, {$inc: {children: 1} }) 
+				var numChildren = Lists.findOne({_id: parentId}).children
+				Tasks.insert({createdBy: userId, name: fabText, parent: Session.get('currPageId'),
+					order: numChildren})
+			}
 			
 			else if (primaryAction == "ion-arrow-move")
 				var selectedTask = Session.get('selectedTask')
@@ -135,6 +141,20 @@ Template.list.events
 					Session.set('primaryActionL', 'ion-edit')
 				else if (primaryAction == 'ion-android-calendar')
 					Meteor.setTimeout(function(){ $('.datepicker').focus() }, 200)
+			}
+		}
+	},
+	'sortupdate .sortable': function(event, ui)
+	{
+		console.log ( $('.sortable').sortable('toArray') )
+		var collection = $('.sortable').sortable('toArray')
+		for (var i = 1; i <= collection.length; i++)
+		{
+			if ("sort_" + i != collection[i-1])
+			{
+				console.log('mismatch ' + "sort_" + i + " | " + collection[i-1] )
+				var taskId =  $("#" + collection[i-1]).attr('data-id')
+				Tasks.update({_id: taskId}, {$set : {order: i} })
 			}
 		}
 	}

@@ -26,6 +26,7 @@ Meteor.startup(function()
 
 // ---------------------------- RENDERED SCRIPT INITIALIZATIONS ----------------------
 
+// ALSO HANDLES COMPLETE/DISMISS CALBACKS
 Template.dismissableRenderedHook.rendered = function()
 { // from materialize.js and enables dismissable collections
 	  swipeLeft = false; swipeRight = false; 
@@ -71,14 +72,19 @@ Template.dismissableRenderedHook.rendered = function()
           { 
            fullWidth = $this.innerWidth();
            var taskId =  $(this).children().attr("id")
-           Lists.update({})
-           console.log("complete: " + $(this).children().attr("id")) 
+            Meteor.setTimeout(function()// allow time for animation 
+            {
+              Tasks.update({_id: taskId}, {$set: {status: "completed"} }) 
+            }, 200) 
           }
           else // DISMISS TASK
           {
             fullWidth = -1 * $this.innerWidth(); 
             var taskId =  $(this).children().attr("id")
-            console.log("dimiss: " + $(this).children().attr("id"))
+            Meteor.setTimeout(function()// allow time for animation 
+            {
+              Tasks.update({_id: taskId}, {$set: {status: "dismissed"} }) 
+            }, 200) 
           }
 
           $this.velocity({ translateX: fullWidth,

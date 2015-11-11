@@ -1,31 +1,31 @@
-var userId = localStorage.getItem('userId')
-if (userId)
-{
-	Lists = Meteor.subscribe('lists', userId)
-	Folders = Meteor.subscribe('folders', userId)
-	Tasks = Meteor.subscribe('tasks', userId)
-}
-else
-{
-	var anonUserId = localStorage.getItem('anonUserId')
-	if (anonUserId)
-	{
-		Lists = Meteor.subscribe('lists', anonUserId)
-		Folders = Meteor.subscribe('folders', anonUserId)
-		Tasks = Meteor.subscribe('tasks', anonUserId)
-	}
-}
-
 // UNIVERSAL (ON EVERY PAGE)
 var setCurrPage = function(name, id) 
 { 
 	Session.set('currPageName', name); 
 	Session.set('currPageId', id) 
 }
+var getUserId = function() // returns userId or anonUserId
+{
+	var userId = localStorage.getItem('userId')
+	if (userId)
+		return userId
+	else
+		userId = localStorage.getItem('anonUserId')
+		if (userId)
+			return userId
+}
 var getFolders = function(currParent) {return Folders.find({parent: currParent})}
 var getLists = function(currParent) {return Lists.find({parent: currParent})}
-var getTasks = function(currParent) {return Tasks.find({parent: currParent})}
+var getTasks = function(currParent) {}
 
+// SUBSCRIPTIONS
+var userId = getUserId()
+if (userId)
+{
+	Lists = Meteor.subscribe('lists', userId)
+	Folders = Meteor.subscribe('folders', userId)
+	Tasks = Meteor.subscribe('tasks', userId)
+}
 
 Template.userAccounts.helpers
 ({
@@ -99,11 +99,6 @@ Template.fabForList.helpers
 				return "New Task"
 		else if (primaryAction == 'ion-edit')
 			return "Edit Task"
-	},
-	'selectedTaskInfo': function(property)
-	{
-		var selectedTask = Session.get('selectedTask')
-		return Tasks.findOne({_id: selectedTask}).property
 	}
 })
 
@@ -111,17 +106,19 @@ Template.navbar.helpers
 ({
 	'currPage':function(){return Session.get('currPageName')},
 	'parent': function()
-	{
+	{ 
 		var pageId = Session.get('currPageId')
 		var currList = Lists.findOne({_id: pageId })
 		var currFolder = Folders.findOne({_id: pageId })
 
 		if (currList)
-			return Folders.findOne({_id: currList.parent})._id
+			var parent = Folders.findOne({_id: currList.parent})
 		else if (currFolder)
-			return Folders.findOne({_id: currFolder.parent})._id
+			var parent = Folders.findOne({_id: currFolder.parent})
 		else
 			return false
+		if (parent)
+			return parent._id
 	}
 })
 
@@ -149,6 +146,7 @@ Template.list.helpers
 	'setCurrPage': function(){setCurrPage(this.name, this._id)},
 	'task': function()
 	{
-		return getTasks(this._id)
+		var userId = getUserId()
+		return Tasks.find({parent: this._id, createdBy: userId, status: {$exists: false} })
 	}
 })

@@ -8,6 +8,7 @@ Router.map(function()
 	this.route('fabForFolder')
 	this.route('fabForList')
 	this.route('root')
+	this.route('calendar')
 })
 
 Router.route(':_id', function()

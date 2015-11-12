@@ -1,0 +1,24 @@
+<template name='calendar'> {{setCurrPage}} {{setDate}}
+
+<header class='calendarHeader'>
+	<h6 class="dayOfWeek">{{showDate 'weekday'}}</h6>
+	<h4 class="month">{{showDate 'month'}}</h4>
+	<h1 class="date">{{showDate 'date'}}</h1>
+	<h5 class="year blendText">{{showDate 'year'}}</h5>
+</header>
+
+<ul class='calendarBody'>
+	<li class="weekday">S</li>
+	<li class="weekday">M</li>
+	<li class="weekday">T</li>
+	<li class="weekday">W</li>
+	<li class="weekday">T</li>
+	<li class="weekday">F</li>
+	<li class="weekday">S</li>
+
+{{#each day}}
+	<li class='calDay flexcenter' id="{{this}}">{{this}}</li>
+{{/each}}
+</ul>
+
+</template>

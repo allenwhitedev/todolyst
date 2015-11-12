@@ -1,7 +1,7 @@
 // UNIVERSAL (ON EVERY PAGE)
 var setCurrPage = function(name, id) 
 { 
-	Session.set('currPageName', name); 
+	Session.set('currPage', name); 
 	Session.set('currPageId', id) 
 }
 var getUserId = function() // returns userId or anonUserId
@@ -104,7 +104,7 @@ Template.fabForList.helpers
 
 Template.navbar.helpers
 ({
-	'currPage':function(){return Session.get('currPageName')},
+	'currPage':function(){return Session.get('currPage')},
 	'parent': function()
 	{ 
 		var pageId = Session.get('currPageId')
@@ -151,3 +151,75 @@ Template.list.helpers
 			, {sort: {order: 1} })
 	}
 })
+
+Template.root.helpers
+({
+	'setDate': function()
+	{
+		Session.set('today', "bananas")
+	}
+})
+
+// CALENDAR ------------------------------------------------------------
+
+var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+var months = 	["January", "February", "March", "April", "May", "June", "July", "August", 
+	"September", "October", "November", "December"]
+var getCurrDate = function() 
+{
+	var selectedDate = Session.get('selectedDate')
+	if (!selectedDate)
+		selectedDate = Session.get('today')
+	return selectedDate
+}
+Template.calendar.helpers
+({
+	'day': function()
+	{
+		var today = Session.get('today'); var month = today.getMonth()
+		var reverseDays = []; var days = []
+
+		while (today.getMonth() == month && today.getDate() > 1)
+		{
+			console.log(today.getDate() + " | " + today)
+			reverseDays.push(today.getDate())
+			today.setDate(today.getDate() - 1)
+		}
+
+		for (var i = 0; i < reverseDays.length; i++)
+			days.push(i + 1)
+
+		today = Session.get('today')
+
+		 while (today.getMonth() == month)
+		 {
+		 	days.push(today.getDate())
+			today.setDate(today.getDate() + 1)
+		 }
+		return days
+	},
+	'setDate': function()
+	{
+		Session.set('today', new Date())
+	},
+	'showDate': function(property)
+	{
+
+		var currDate = getCurrDate()
+
+		if (property == 'weekday')
+		 	return weekdays[currDate.getDay()]
+		else if (property == 'month')
+			return months[currDate.getMonth()]
+		else if (property == 'date')
+			return currDate.getDate()
+		else if (property == 'year')
+			return currDate.getFullYear()
+	}
+})
+
+
+
+
+
+

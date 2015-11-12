@@ -117,6 +117,7 @@ Template.sortableRenderedHook.rendered = function()
 	$( ".sortable" ).sortable(); 	$( ".sortable" ).disableSelection()
 }
 
+// HANDLES SUBMIT EVENT FOR DATEPICKER
 Template.datepickerRenderedHook.rendered = function()
 { // DATEPICKER JQUERY INITIALIZATION
   $('.datepicker').pickadate

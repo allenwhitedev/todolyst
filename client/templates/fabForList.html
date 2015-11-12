@@ -34,8 +34,10 @@
 <!-- DATE & TIME PICKERS-->
 {{#if addingTime}} {{>datepickerRenderedHook}}
 <div class='row' style='position: absolute; bottom: 0px; padding-left: 20px; width: 70%;'>
-   <input type='date' id='fabInputBar' class='datepicker validate padLeft absoluteToHide' >
+  <div class="datepickerForm">
+   <input type='date' id='fabInputBar' class='datepicker padLeft absoluteToHide' >
    <label class='' for='fabInputBar'>Add/Edit Date</label>
+  </div>
 </div> 
 
 {{else}} {{#if placeHolderForm}}

@@ -122,6 +122,13 @@ Template.datepickerRenderedHook.rendered = function()
   $('.datepicker').pickadate
   ({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 5 // Creates a dropdown of 15 years to control year
+    selectYears: 5, // Creates a dropdown of 15 years to control year
+    close: 'add',
+    onClose: function()
+    {
+      console.log(  $('#fabInputBar').val() )
+      Tasks.update({_id: Session.get('selectedTask')}, {$set: {dateTime: $('#fabInputBar').val()}})
+      $('#fabInputBar').val('')
+    }
   })
 }

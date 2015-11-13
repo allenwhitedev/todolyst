@@ -1,4 +1,4 @@
-<template name='calendar'> {{setCurrPage}} {{setDate}}
+<template name='calendar'> {{setCurrPage}} {{setDate}} {{setEvents}}
 
 <header class='calendarHeader'>
 	<h6 class="dayOfWeek">{{showDate 'weekday'}}</h6>
@@ -6,6 +6,12 @@
 	<h1 class="date">{{showDate 'date'}}</h1>
 	<h5 class="year blendText">{{showDate 'year'}}</h5>
 </header>
+
+<!-- <ul>
+	{{#each getEvents}}
+	<li>{{this}} {{name}} {{day}} {{year}}</li>
+	{{/each}}
+</ul> -->
 
 <ul class='calendarBody'>
 	<li class="weekday">S</li>
@@ -16,8 +22,13 @@
 	<li class="weekday">F</li>
 	<li class="weekday">S</li>
 
-{{#each day}}
-	<li class='calDay flexcenter' id="{{this}}">{{this}}</li>
+{{#each calDay}}
+	<li class='calDay' id="{{this}}">
+		<div>{{this}} </div>
+		<div class='calDot' style='width: {{numEvents this}}0%;'>
+		</div>		
+
+	</li>
 {{/each}}
 </ul>
 

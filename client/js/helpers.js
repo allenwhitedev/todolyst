@@ -174,14 +174,13 @@ var getCurrDate = function()
 }
 Template.calendar.helpers
 ({
-	'day': function()
+	'calDay': function() // should rerun on month change
 	{
 		var today = Session.get('today'); var month = today.getMonth()
 		var reverseDays = []; var days = []
 
 		while (today.getMonth() == month && today.getDate() > 1)
 		{
-			console.log(today.getDate() + " | " + today)
 			reverseDays.push(today.getDate())
 			today.setDate(today.getDate() - 1)
 		}
@@ -197,6 +196,28 @@ Template.calendar.helpers
 			today.setDate(today.getDate() + 1)
 		 }
 		return days
+	},
+	'setEvents': function()
+	{
+		var currDate = getCurrDate(); var currMonth = currDate.getMonth()
+		var tasks = Tasks.find({month: currDate.getMonth()}).fetch()
+		var numTasks = {}
+
+		for (var i = 0; i < tasks.length; i++)
+		{
+			var day = tasks[i].day
+			if (numTasks[day])
+				numTasks[day]++
+			else
+				numTasks[day] = 1 
+		}
+
+		for (var theDay in numTasks)
+			Session.set(theDay, numTasks[theDay])
+	},
+	'numEvents': function(day)
+	{
+		return Session.get(day)
 	},
 	'setDate': function()
 	{

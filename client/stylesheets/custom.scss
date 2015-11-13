@@ -21,9 +21,19 @@
 {
 	display: flex; flex-direction: row; flex-wrap: wrap; 
 }
-.calDay, .weekday {display: flex; justify-content: center; align-items: center; width: calc(100%/7);}
+.calDay, .weekday 
+{
+	display: flex; justify-content: center; align-items: center; flex-direction: column;
+	width: calc(100%/7);
+}
 .calDay 
-{ color: #595959; min-height: 39px;}
+{ color: #595959; height: 50px;}
+
+.calDot 
+{
+	background: #ee6e73; border-radius: 20%; height: 5px; max-width: 75%;
+}
+
 .dayOfWeek 
 {
 	font-weight: 300; background: #1f897f; width: 100%; padding: 10px; 
@@ -32,3 +42,4 @@
 .month {font-size: 2rem; margin: 15px auto auto 0; font-weight: 300;}
 .date {font-size: 4.5rem; margin: 5px;}
 .year {font-size: 1.8rem; margin-bottom: 10px; font-weight: 300; }
+.weekday {font-size: .9rem; color: #999; margin-bottom: 10px;}

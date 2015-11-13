@@ -118,7 +118,7 @@ Template.sortableRenderedHook.rendered = function()
 }
 
 // HANDLES SUBMIT EVENT FOR DATEPICKER
-Template.datepickerRenderedHook.rendered = function()
+Template.datepickerRenderedHook.rendered = function() // just date (no time) right now
 { // DATEPICKER JQUERY INITIALIZATION
   $('.datepicker').pickadate
   ({
@@ -127,9 +127,18 @@ Template.datepickerRenderedHook.rendered = function()
     close: 'add',
     onClose: function()
     {
-      console.log(  $('#fabInputBar').val() )
-      Tasks.update({_id: Session.get('selectedTask')}, {$set: {dateTime: $('#fabInputBar').val()}})
-      $('#fabInputBar').val('')
+      var dateInput = $('#fabInputBar').val()
+      if (dateInput.length > 0)
+      {
+        var datetime = new Date( $('#fabInputBar').val() )  
+        var month = datetime.getMonth(); 
+        var day = datetime.getDate(); 
+        var year = datetime.getFullYear()
+        Tasks.update({_id: Session.get('selectedTask')}, {$set: 
+          {month: month, day: day, year: year}, })
+        $('#fabInputBar').val(''); 
+      }
+      $('.selectedTask').removeClass('selectedTask'); Session.delete('selectedTask')
     }
   })
 }

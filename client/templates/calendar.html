@@ -1,7 +1,7 @@
 <template name='calendar'> {{setCurrPage}} {{setDate}} {{setEvents}}
 
 <header class='calendarHeader'>
-	<h6 class="dayOfWeek">{{showDate 'weekday'}}</h6>
+<!-- 	<h6 class="dayOfWeek">{{showDate 'weekday'}}</h6> -->
 	<h4 class="month">{{showDate 'month'}}</h4>
 	<h1 class="date">{{showDate 'date'}}</h1>
 	<h5 class="year blendText">{{showDate 'year'}}</h5>
@@ -23,4 +23,10 @@
 
 </ul>
 
+{{> fabForList}}
+
+<style type="text/css">
+.nav-wrapper {background: #1f897f;}
+nav .brand-logo {font-size: 1.6rem; font-weight: 300;}
+</style>
 </template>

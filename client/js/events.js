@@ -175,7 +175,7 @@ Template.calendar.events
 	'click .calDay': function(event)
 	{
 		$('.selectedDate').removeClass('selectedDate')
-		var currDate = new Date(getCurrDate())
+		var currDate = getCurrDate()
 		var day = event.target.id
 		console.log(day)
 		if (day)

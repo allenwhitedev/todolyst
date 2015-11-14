@@ -236,7 +236,13 @@ Template.calendar.helpers
 			return currDate.getDate()
 		else if (property == 'year')
 			return currDate.getFullYear()
-	}
+	},
+	'setCurrPage': function() // sets currPage to day of week
+	{	
+		var currDate = getCurrDate(); 
+		console.log('a: ' + currDate.getDay())
+		Session.set('currPage', weekdays[currDate.getDay()] ) 
+	}	
 })
 
 

@@ -16,7 +16,10 @@
  }
 
 /* CALENDAR */
-.calendarHeader {background: #26a69a; color: #fff; text-align: center; padding-bottom: 10px;}
+.calendarHeader 
+{ 
+	background: #26a69a; color: #fff; text-align: center; padding: 5px; 
+}
 .calendarBody 
 {
 	display: flex; flex-direction: row; flex-wrap: wrap; 
@@ -40,7 +43,7 @@
 	font-weight: 300; background: #1f897f; width: 100%; padding: 10px; 
 	color: rgba(255, 255, 255, .95)
 }
-.month {font-size: 2rem; margin: 15px auto auto 0; font-weight: 300;}
+.month {font-size: 2.1rem; margin: 15px auto auto 0; font-weight: 300;}
 .date {font-size: 4.5rem; margin: 5px;}
 .year {font-size: 1.8rem; margin-bottom: 10px; font-weight: 300; }
 .weekday {font-size: .9rem; color: #999; margin-bottom: 10px;}

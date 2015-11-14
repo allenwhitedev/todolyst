@@ -7,29 +7,20 @@
 	<h5 class="year blendText">{{showDate 'year'}}</h5>
 </header>
 
-<!-- <ul>
-	{{#each getEvents}}
-	<li>{{this}} {{name}} {{day}} {{year}}</li>
-	{{/each}}
-</ul> -->
-
 <ul class='calendarBody'>
-	<li class="weekday">S</li>
-	<li class="weekday">M</li>
-	<li class="weekday">T</li>
-	<li class="weekday">W</li>
-	<li class="weekday">T</li>
-	<li class="weekday">F</li>
-	<li class="weekday">S</li>
+
+	<li class="weekday">S</li> <li class="weekday">M</li> 
+	<li class="weekday">T</li> 	<li class="weekday">W</li>
+	<li class="weekday">T</li> 	<li class="weekday">F</li> 	<li class="weekday">S</li>
 
 {{#each calDay}}
-	<li class='calDay' id="{{this}}">
-		<div>{{this}} </div>
+	<li class='calDay waves-effect waves-light waves-circle' id="{{this}}">
+		{{this}} 
 		<div class='calDot' style='width: {{numEvents this}}0%;'>
 		</div>		
-
 	</li>
 {{/each}}
+
 </ul>
 
 </template>

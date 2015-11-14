@@ -159,3 +159,31 @@ Template.list.events
 		}
 	}
 })
+
+
+var getCurrDate = function() 
+{
+	var selectedDate = Session.get('selectedDate')
+	if (!selectedDate)
+		selectedDate = Session.get('today')
+	return selectedDate
+}
+
+// CALENDAR EVENTS -----------------------------
+Template.calendar.events
+({
+	'click .calDay': function(event)
+	{
+		$('.selectedDate').removeClass('selectedDate')
+		var currDate = new Date(getCurrDate())
+		var day = event.target.id
+		console.log(day)
+		if (day)
+		{
+			currDate.setDate(day)
+			Session.set('selectedDate', currDate)
+			$('#' + event.target.id).addClass('selectedDate')
+		}
+	}
+})
+

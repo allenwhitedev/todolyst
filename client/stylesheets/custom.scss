@@ -27,8 +27,9 @@
 	width: calc(100%/7);
 }
 .calDay 
-{ color: #595959; height: 50px;}
-
+{ color: #595959; height: 14.2857142857vw;}
+.calDay:hover {cursor: hand; cursor: pointer;}
+.selectedDate {background: #ee6e73; border-radius: 50%; color: #fff;}
 .calDot 
 {
 	background: #ee6e73; border-radius: 20%; height: 5px; max-width: 75%;

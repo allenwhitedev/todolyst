@@ -112,6 +112,20 @@ Template.fabForList.events
 	}
 })
 
+// FAB-LIST EVENTS ------------------------------------
+Template.fabForCalendar.events
+({ 
+	'click #primaryActionC': function(event)
+	{
+		var oldPrimaryAction = Session.get('primaryActionC')
+		var newPrimaryAction = Session.get('secondaryActionC')
+
+		Session.set('primaryActionC', newPrimaryAction)
+		Session.set('secondaryActionC', oldPrimaryAction)
+	}
+
+})
+
 // LIST EVENTS ----------------------------------
 
 Template.list.events
@@ -146,13 +160,13 @@ Template.list.events
 	},
 	'sortupdate .sortable': function(event, ui)
 	{
-		console.log ( $('.sortable').sortable('toArray') )
+		//console.log ( $('.sortable').sortable('toArray') )
 		var collection = $('.sortable').sortable('toArray')
 		for (var i = 1; i <= collection.length; i++)
 		{
 			if ("sort_" + i != collection[i-1])
 			{
-				console.log('mismatch ' + "sort_" + i + " | " + collection[i-1] )
+				//console.log('mismatch ' + "sort_" + i + " | " + collection[i-1] )
 				var taskId =  $("#" + collection[i-1]).attr('data-id')
 				Tasks.update({_id: taskId}, {$set : {order: i} })
 			}
@@ -177,7 +191,7 @@ Template.calendar.events
 		$('.selectedDate').removeClass('selectedDate')
 		var currDate = getCurrDate()
 		var day = event.target.id
-		console.log(day)
+		//console.log(day)
 		if (day)
 		{
 			currDate.setDate(day)

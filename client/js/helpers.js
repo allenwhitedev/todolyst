@@ -66,7 +66,7 @@ Template.fabForFolder.helpers
 	{
 		return Session.get(action)
 	},
-	'placeHolder': function()
+	'placeholder': function()
 	{
 		var primaryAction = Session.get('primaryAction') 
 		if (primaryAction == 'ion-folder')
@@ -84,7 +84,7 @@ Template.fabForList.helpers
 	{
 		return Session.get(action)
 	},
-	'placeHolderInfo': function()
+	'placeholderInfo': function()
 	{
 		var primaryAction = Session.get('primaryActionL')
 		if (primaryAction == 'ion-android-done')
@@ -92,14 +92,35 @@ Template.fabForList.helpers
 		else if (primaryAction == 'ion-arrow-move')
 			return 'Reorder'
 	},
-	'placeHolderForm': function()
+	'placeholderForm': function()
 	{
 		var primaryAction = Session.get('primaryActionL') 
 		if (primaryAction == 'ion-plus')
-				return "New Task"
+				return "Add Task"
 		else if (primaryAction == 'ion-edit')
 			return "Edit Task"
 	}
+})
+
+Template.fabForCalendar.helpers
+({
+	'getAction': function(action)
+	{
+		return Session.get(action)
+	},
+	'placeholderForm': function()
+	{
+		var primaryAction = Session.get('primaryActionC')
+		if (primaryAction == 'ion-plus')
+			return 'Add Event'
+	},
+	'placeholderInfo': function()
+	{
+		var primaryAction = Session.get('primaryActionC')
+		if (primaryAction == 'ion-clipboard')
+			return 'View Schedule'
+	}
+
 })
 
 Template.navbar.helpers
@@ -176,26 +197,30 @@ Template.calendar.helpers
 ({
 	'calDay': function() // should rerun on month change
 	{
-		var today = Session.get('today'); var month = today.getMonth()
-		var reverseDays = []; var days = []
-
-		while (today.getMonth() == month && today.getDate() > 1)
+		var today = Session.get('today'); 
+		if (today)
 		{
-			reverseDays.push(today.getDate())
-			today.setDate(today.getDate() - 1)
+			var month = today.getMonth()
+			var reverseDays = []; var days = []
+
+			while (today.getMonth() == month && today.getDate() > 1)
+			{
+				reverseDays.push(today.getDate())
+				today.setDate(today.getDate() - 1)
+			}
+
+			for (var i = 0; i < reverseDays.length; i++)
+				days.push(i + 1)
+
+			today = Session.get('today')
+
+			 while (today.getMonth() == month)
+			 {
+			 	days.push(today.getDate())
+				today.setDate(today.getDate() + 1)
+			 }
+			return days
 		}
-
-		for (var i = 0; i < reverseDays.length; i++)
-			days.push(i + 1)
-
-		today = Session.get('today')
-
-		 while (today.getMonth() == month)
-		 {
-		 	days.push(today.getDate())
-			today.setDate(today.getDate() + 1)
-		 }
-		return days
 	},
 	'setEvents': function()
 	{
@@ -239,9 +264,9 @@ Template.calendar.helpers
 	},
 	'setCurrPage': function() // sets currPage to day of week
 	{	
-		var currDate = getCurrDate(); 
-		console.log('a: ' + currDate.getDay())
-		Session.set('currPage', weekdays[currDate.getDay()] ) 
+		var currDate = getCurrDate();
+		if (currDate) 
+			Session.set('currPage', weekdays[currDate.getDay()] ) 
 	}	
 })
 

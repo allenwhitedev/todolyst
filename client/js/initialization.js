@@ -4,7 +4,7 @@ Meteor.startup(function()
 	if ( !Session.get('primaryAction') )
 	{
 		// folder fab
-		Session.set('primaryAction', 'ion-edit')
+		Session.set('primaryAction', 'ion-arrow-resize')
 		Session.set('secondaryAction', 'ion-folder')
 		Session.set('tertiaryAction', 'ion-ios-bell')
 		Session.set('quaternaryAction', 'ion-document-text')
@@ -12,7 +12,10 @@ Meteor.startup(function()
 		Session.set('primaryActionL', 'ion-plus')
 		Session.set('secondaryActionL', 'ion-android-calendar')
 		Session.set('tertiaryActionL', 'ion-android-done')
-		Session.set('quaternaryActionL', 'ion-arrow-move')			
+		Session.set('quaternaryActionL', 'ion-arrow-move')
+    // cal fab
+    Session.set('primaryActionC', 'ion-clipboard')
+    Session.set('secondaryActionC', 'ion-plus')	
 	}
 	if ( !Session.get('currPage') )
 		Session.set('currPage', 'todolyst')
